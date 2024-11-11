@@ -61,11 +61,13 @@ public class Flowchart extends JPanel {
 
         try {
             ImageIO.write(image, "png", new File(filePath));
-            JOptionPane.showMessageDialog(this, "Flowchart exported successfully!", 
-                                          "Export Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Flowchart exported successfully!",
+                    "Export Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error exporting flowchart: " + e.getMessage(), 
-                                          "Export Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error exporting flowchart: " + e.getMessage(),
+                    "Export Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            g2d.dispose(); // Dispose the graphic object
         }
     }
 
@@ -79,10 +81,11 @@ public class Flowchart extends JPanel {
         int y = 50;  // Initial Y coordinate
         int width = 160;
         int height = 50;
-        int yOffset = 100;  // Offset between components
+        int yOffset = panelHeight / (components.size() + 2);  // Dynamic offset between components based on size
 
         // Draw start oval
-        drawOval(g2d, x, y, width, height, "Start");
+        int startX = x + 20;
+        drawOval(g2d, startX, y, width, height, "Start");
         y += yOffset;
 
         // Draw components
@@ -123,7 +126,8 @@ public class Flowchart extends JPanel {
         }
 
         // Draw stop oval
-        drawOval(g2d, x, y, width, height, "Stop");
+        int stopX = x + 20;
+        drawOval(g2d, stopX, y, width, height, "Stop");
     }
 
     // Helper method to draw ovals for start/stop

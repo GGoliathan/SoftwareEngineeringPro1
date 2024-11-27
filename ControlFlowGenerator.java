@@ -28,7 +28,10 @@ public class ControlFlowGenerator {
                 loopCount++;
             } else if (line.contains("try") || line.contains("catch")) {
                 tryCatchCount++;
-            } else if (line.contains("Scanner") || line.contains("args")) {
+            } else if (line.contains("scanner.") && (
+                    line.contains("nextLine()") || line.contains("next()") || line.contains("nextInt()") ||
+                    line.contains("nextDouble()") || line.contains("nextFloat()") ||
+                    line.contains("nextLong()") || line.contains("nextBoolean()"))) {
                 inputCount++;
             } else if (line.contains("System.out.println")) {
                 outputCount++;
